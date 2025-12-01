@@ -19,7 +19,11 @@ torch_geometric==2.7.0
 ```
 
 ## Dataset
-The original raw dataset from the State Grid Corporation of China used for this research cannot be made publicly available due to its confidential nature and proprietary restrictions. To ensure the reproducibility of our methodology, a simulated dataset has been generated and is provided at the aforementioned link. This simulated data shares the same format and structure as the original data, and is sufficient to demonstrate the functionality of the provided analysis codes and to allow for the verification of our data processing and analysis workflow.
+  We evaluated the model on four hourly power load datasets: two real-world datasets from the State Grid Corporation of China and two public benchmarks (CAISO and GEFCOM2012 dataset). The chosen datasets encompass various characteristics, including different periodicities and spatial distributions of substations or load zones, enabling a robust assessment of adaptability and predictive capability across diverse scenarios.  
+* **CAISO**. This dataset provides hourly load data for 34 regional zones in California, recorded from May 1 to December 31, 2014. It also includes an aggregated series for the entire state. (https://energyonline.com/Data/)  
+* **GEFCOM2012**. This dataset comprises two subsets: a power load dataset and a wind power dataset. The load subset contains backcast and forecast hourly load values (in kW) for 20 regions served by a U.S. utility, with data recorded hourly from November 29, 2006, to June 30, 2008. (https://doi.org/10.1016/j.ijforecast.2013.07.001)  
+* The original raw dataset from the State Grid Corporation of China used for this research cannot be made publicly available due to its confidential nature and proprietary restrictions.  
+To ensure the reproducibility of our methodology, a simulated dataset has been generated and is provided at the aforementioned link. This simulated data shares the same format and structure as the original data, and is sufficient to demonstrate the functionality of the provided analysis codes and to allow for the verification of our data processing and analysis workflow.  
 ## Folder Structure
 ```
 ASTHCRN/
@@ -86,4 +90,29 @@ ASTHCRN/
 │   ├── save_result.py                  # Code for saving results
 ```
 ## Arguments
+We introduce some major arguments of our main function here.
 
+**Training settings:**
+
+* train_rate: rate of train set
+* val_rate：rate of validation set
+* test_rate: rate pf test set
+* T_dim: time length of hidtorical steps
+* output_T_dim: time length of future steps
+* num_nodes: the number of stations
+* batch_size: training or testing batch size
+* in_channels: the feature dimension of inputs
+* output_dim：the feature dimension of outputs
+* learning_rate: the learning rate at the beginning
+* epochs: training epochs
+* early_stop_patience: the patience of early stopping
+* device: using which GPU to train our model
+* seed: the random seed for experiments
+
+**Model hyperparameters:**
+
+* embed_size: the dimensions of convolution expansion 
+* d_inner: the dimension of the HGCRU
+* hyperedge_rate: hyperedge rate
+* HGCNADP_embed_dims: the dimensions of  embeddings for nodes and hyperedges
+* dropout: dropout rate
