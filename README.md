@@ -112,7 +112,7 @@ We introduce some major arguments of our main function here.
 **Model hyperparameters:**
 
 * embed_size: dimension of feature embedding for convolution expansion 
-* d_inner: hidden dimension of the HGCRU
+* d_inner: hidden dimension of the (Hypergraph Convolution Recurrent Unit) HGCRU
 * hyperedge_rate: hyperedge rate
-* AdaHCM_embed_dims: embedding dimensions for nodes and hyperedges in AdaHCM module
+* AdaHCM_embed_dims: embedding dimensions for nodes and hyperedges in the Adaptive Hypergraph Construction Module (AdaHCM)
 * dropout: dropout rate
