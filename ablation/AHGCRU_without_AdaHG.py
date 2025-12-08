@@ -113,7 +113,6 @@ class AdaHCM(nn.Module):
         EE = torch.tanh(2 * self.edgevec).transpose(1, 0)
         adj = F.relu(torch.tanh(2 * torch.matmul(DE, EE)))
 
-
         adj = adj.repeat(B, 1, 1)
         HE = []
         HEW = []

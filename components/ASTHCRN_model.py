@@ -3,8 +3,7 @@ from ASTHCRN.components.AHGCRU import AHGCRU
 
 class STBlock(nn.Module):
 
-    def __init__(self, embed_size, num_nodes, d_inner, device, AdaHCM_topk, hyperedge_rate, AdaHCM_embed_dims,
-                 dropout, ):
+    def __init__(self, embed_size, num_nodes, d_inner, device, AdaHCM_topk, hyperedge_rate, AdaHCM_embed_dims):
         super(STBlock, self).__init__()
         self.num_nodes = num_nodes
         self.device = device
@@ -41,7 +40,7 @@ class STBlocks(nn.Module):
                     AdaHCM_topk,
                     hyperedge_rate,
                     AdaHCM_embed_dims,
-                    dropout=dropout)
+                    )
                 for _ in range(num_layers)
             ]
         )

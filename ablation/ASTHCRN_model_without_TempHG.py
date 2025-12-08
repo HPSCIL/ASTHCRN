@@ -7,8 +7,7 @@ class STBlock(nn.Module):
                  device,
                  AdaHCM_topk,
                  hyperedge_rate,
-                 AdaHCM_embed_dims,
-                 ):
+                 AdaHCM_embed_dims):
         super(STBlock, self).__init__()
 
         self.num_nodes = num_nodes
@@ -22,7 +21,7 @@ class STBlock(nn.Module):
             out_channels=embed_size,
             hyperedge_rate=hyperedge_rate,
             AdaHCM_topk=AdaHCM_topk,
-            AdaHCM_embed_dims=AdaHCM_embed_dims )
+            AdaHCM_embed_dims=AdaHCM_embed_dims)
 
 
     def forward(self, x):

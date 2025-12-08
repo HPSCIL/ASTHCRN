@@ -69,7 +69,6 @@ class AHGCRU_without_HGCN(nn.Module):
             AdaHCM_embed_dims=AdaHCM_embed_dims
         )
 
-
         self.HGCRU_without_HGCN = HGCRU_without_HGCN(in_feature=in_channels, hidden_dim=self.hidden_dim)
 
         self.conv = nn.Conv2d(self.hidden_dim, self.out_channels, 1)

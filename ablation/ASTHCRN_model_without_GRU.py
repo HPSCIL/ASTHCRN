@@ -9,7 +9,7 @@ class STBlock(nn.Module):
                  device,
                  AdaHCM_topk,
                  hyperedge_rate,
-                 AdaHCM_embed_dims, ):
+                 AdaHCM_embed_dims):
         super(STBlock, self).__init__()
 
         self.num_nodes = num_nodes
@@ -59,7 +59,6 @@ class STBlocks(nn.Module):
                     AdaHCM_topk,
                     hyperedge_rate,
                     AdaHCM_embed_dims,
-
                 )
                 for _ in range(num_layers)
             ]

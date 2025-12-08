@@ -25,7 +25,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 MODEL = 'ASTHCRN'
 DEBUG = 'False'
-dataset_name="dataset"
+dataset_name = "dataset"
 
 device = torch.device('cuda:0')
 

@@ -100,7 +100,6 @@ class AdaHCM(nn.Module):
 
         for i in range(B):
             edge_index = adj[i, :, :].nonzero(as_tuple=False).t()
-
             edge_index[0] += i * N
             edge_index[1] += i * M
             HE.append(edge_index)
