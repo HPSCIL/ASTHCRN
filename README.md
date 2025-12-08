@@ -118,6 +118,3 @@ We introduce some major arguments of our main function here.
 * hyperedge_rate: hyperedge rate
 * AdaHCM_embed_dims: embedding dimensions for nodes and hyperedges in the Adaptive Hypergraph Construction Module (AdaHCM)
 * dropout: dropout rate
-=======
-# ASTHCRN
->>>>>>> 0a8e357239d9abbc1940255ee687f0a46eb6480d
