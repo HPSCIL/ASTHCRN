@@ -7,9 +7,9 @@ class STBlock(nn.Module):
 
     def __init__(self, embed_size, num_nodes,d_inner,
                  device,
-                 HGCNADP_topk,
+                 AdaHCM_topk,
                  hyperedge_rate,
-                 HGCNADP_embed_dims, ):
+                 AdaHCM_embed_dims, ):
         super(STBlock, self).__init__()
 
         self.num_nodes = num_nodes
@@ -22,8 +22,8 @@ class STBlock(nn.Module):
             hidden_dim=d_inner,
             out_channels=embed_size,
             hyperedge_rate=hyperedge_rate,
-            HGCNADP_topk=HGCNADP_topk,
-            embed_dims=HGCNADP_embed_dims
+            AdaHCM_topk=AdaHCM_topk,
+            AdaHCM_embed_dims=AdaHCM_embed_dims
         )
 
     def forward(self, x):
@@ -45,9 +45,9 @@ class STBlocks(nn.Module):
             num_nodes,
             d_inner,
             device,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout,):
         super(STBlocks, self).__init__()
         self.embed_size = embed_size
@@ -56,9 +56,9 @@ class STBlocks(nn.Module):
                 STBlock(
                     embed_size,num_nodes,d_inner,
                     device,
-                    HGCNADP_topk,
+                    AdaHCM_topk,
                     hyperedge_rate,
-                    HGCNADP_embed_dims,
+                    AdaHCM_embed_dims,
 
                 )
                 for _ in range(num_layers)
@@ -86,9 +86,9 @@ class main(nn.Module):
             output_T_dim,
             num_nodes,
             device,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout=0.1,):
         super(main, self).__init__()
 
@@ -102,9 +102,9 @@ class main(nn.Module):
             num_nodes,
             d_inner,
             device,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout,)
 
         self.temporal_conv = nn.Sequential(

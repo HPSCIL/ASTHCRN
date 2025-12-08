@@ -61,7 +61,7 @@ class HGCRU_without_TempHG(nn.Module):
 
 class AHGCRU_without_TempHG(nn.Module):
     def __init__(self, device, num_nodes, in_channels, hidden_dim,out_channels,
-                 hyperedge_rate, HGCNADP_topk, embed_dims):
+                 hyperedge_rate, AdaHCM_topk, AdaHCM_embed_dims):
         super(AHGCRU_without_TempHG, self).__init__()
         self.device = device
         self.num_nodes = num_nodes
@@ -71,9 +71,9 @@ class AHGCRU_without_TempHG(nn.Module):
         self.HG = AdaHCM(
             DEVICE=device,
             num_of_vertices=num_nodes,
-            HGCNADP_topk=HGCNADP_topk,
+            AdaHCM_topk=AdaHCM_topk,
             hyperedge_rate=hyperedge_rate,
-            embed_dims=embed_dims
+            AdaHCM_embed_dims=AdaHCM_embed_dims
         )
 
         self.HGCRU_without_TempHG = HGCRU_without_TempHG(in_feature=in_channels, hidden_dim=self.hidden_dim)
@@ -100,12 +100,12 @@ class AHGCRU_without_TempHG(nn.Module):
         return final_output
 
 class AdaHCM(nn.Module):
-    def __init__(self, DEVICE, num_of_vertices,HGCNADP_topk,hyperedge_rate,embed_dims):
+    def __init__(self, DEVICE, num_of_vertices,AdaHCM_topk,hyperedge_rate,AdaHCM_embed_dims):
         super(AdaHCM, self).__init__()
         self.device = DEVICE
-        self.HGCNADP_topk=HGCNADP_topk
-        self.nodevec = nn.Parameter(torch.randn(num_of_vertices, embed_dims), requires_grad=True).to(DEVICE)
-        self.edgevec = nn.Parameter(torch.randn(math.ceil(hyperedge_rate * num_of_vertices), embed_dims), requires_grad=True).to(DEVICE)
+        self.AdaHCM_topk=AdaHCM_topk
+        self.nodevec = nn.Parameter(torch.randn(num_of_vertices, AdaHCM_embed_dims), requires_grad=True).to(DEVICE)
+        self.edgevec = nn.Parameter(torch.randn(math.ceil(hyperedge_rate * num_of_vertices), AdaHCM_embed_dims), requires_grad=True).to(DEVICE)
 
     def forward(self, x):
         B, N, _, _ = x.shape

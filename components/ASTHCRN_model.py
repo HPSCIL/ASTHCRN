@@ -3,7 +3,7 @@ from ASTHCRN.components.AHGCRU import AHGCRU
 
 class STBlock(nn.Module):
 
-    def __init__(self, embed_size, num_nodes, d_inner, device, HGCNADP_topk, hyperedge_rate, HGCNADP_embed_dims,
+    def __init__(self, embed_size, num_nodes, d_inner, device, AdaHCM_topk, hyperedge_rate, AdaHCM_embed_dims,
                  dropout, ):
         super(STBlock, self).__init__()
         self.num_nodes = num_nodes
@@ -15,8 +15,8 @@ class STBlock(nn.Module):
             hidden_dim=d_inner,
             out_channels=embed_size,
             hyperedge_rate=hyperedge_rate,
-            HGCNADP_topk=HGCNADP_topk,
-            embed_dims=HGCNADP_embed_dims
+            AdaHCM_topk=AdaHCM_topk,
+            AdaHCM_embed_dims=AdaHCM_embed_dims
         )
 
     def forward(self, x):
@@ -27,8 +27,8 @@ class STBlock(nn.Module):
         return final_output
 
 class STBlocks(nn.Module):
-    def __init__(self, embed_size, num_layers, num_nodes, d_inner, device, HGCNADP_topk, hyperedge_rate,
-                 HGCNADP_embed_dims, dropout, ):
+    def __init__(self, embed_size, num_layers, num_nodes, d_inner, device, AdaHCM_topk, hyperedge_rate,
+                 AdaHCM_embed_dims, dropout, ):
         super(STBlocks, self).__init__()
         self.embed_size = embed_size
         self.layers = nn.ModuleList(
@@ -38,9 +38,9 @@ class STBlocks(nn.Module):
                     num_nodes,
                     d_inner,
                     device,
-                    HGCNADP_topk,
+                    AdaHCM_topk,
                     hyperedge_rate,
-                    HGCNADP_embed_dims,
+                    AdaHCM_embed_dims,
                     dropout=dropout)
                 for _ in range(num_layers)
             ]
@@ -57,14 +57,14 @@ class STBlocks(nn.Module):
 class main(nn.Module):
     def __init__(self, in_channels, output_dim, embed_size, d_inner, num_layers,
                  T_dim, output_T_dim, num_nodes, device,
-                 HGCNADP_topk, hyperedge_rate, HGCNADP_embed_dims, dropout=0.1, ):
+                 AdaHCM_topk, hyperedge_rate, AdaHCM_embed_dims, dropout=0.1, ):
         super(main, self).__init__()
         self.device = device
         self.embed_size = embed_size
 
         self.conv1 = nn.Conv2d(in_channels, embed_size, 1)
         self.STBlocks = STBlocks(embed_size, num_layers, num_nodes, d_inner,
-                                 device, HGCNADP_topk, hyperedge_rate, HGCNADP_embed_dims, dropout)
+                                 device, AdaHCM_topk, hyperedge_rate, AdaHCM_embed_dims, dropout)
 
         self.temporal_conv = nn.Sequential(
             nn.Conv2d(T_dim, output_T_dim, 1),

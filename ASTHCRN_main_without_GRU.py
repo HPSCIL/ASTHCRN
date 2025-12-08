@@ -43,7 +43,7 @@ args.add_argument('--learning_rate', default=0.005, type=float)
 args.add_argument('--embed_size', default=64, type=int)
 args.add_argument('--num_layers', default=2, type=int)
 args.add_argument('--log_dir', default='./', type=str)
-args.add_argument('--epochs', default=1, type=int)
+args.add_argument('--epochs', default=100, type=int)
 args.add_argument('--debug', default=DEBUG, type=eval)
 args.add_argument('--log_step', default=20, type=int)
 args.add_argument('--early_stop', default=True, type=eval)
@@ -53,15 +53,15 @@ args.add_argument('--seed', default=42, type=int)
 args.add_argument('--dropout', default=0.1, type=float)
 args.add_argument('--d_inner', type=int, default=64)
 
-args.add_argument('--HGCNADP_topk', type=int)
+args.add_argument('--AdaHCM_topk', type=int)
 args.add_argument('--hyperedge_rate', default=0.3, type=float)
-args.add_argument('--HGCNADP_embed_dims', default=40, type=int)
+args.add_argument('--AdaHCM_embed_dims', default=40, type=int)
 
 args = args.parse_args()
 init_seed(args.seed)
 
 torch.cuda.synchronize()
-args.HGCNADP_topk = math.ceil(args.hyperedge_rate * args.num_nodes)
+args.AdaHCM_topk = math.ceil(args.hyperedge_rate * args.num_nodes)
 
 # load dataset
 dataframe = pd.read_excel(
@@ -118,9 +118,9 @@ net = main(
     args.output_T_dim,
     args.num_nodes,
     device,
-    HGCNADP_topk=args.HGCNADP_topk,
+    AdaHCM_topk=args.AdaHCM_topk,
     hyperedge_rate=args.hyperedge_rate,
-    HGCNADP_embed_dims=args.HGCNADP_embed_dims,
+    AdaHCM_embed_dims=args.AdaHCM_embed_dims,
     dropout=args.dropout)
 
 for p in net.parameters():

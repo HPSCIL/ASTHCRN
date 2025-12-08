@@ -8,9 +8,9 @@ class STBlock(nn.Module):
     def __init__(self, embed_size, num_nodes, d_inner,
                  hyperedge_index,
                  device,
-                 HGCNADP_topk,
+                 AdaHCM_topk,
                  hyperedge_rate,
-                 HGCNADP_embed_dims, ):
+                 AdaHCM_embed_dims, ):
         super(STBlock, self).__init__()
 
         self.num_nodes = num_nodes
@@ -24,11 +24,11 @@ class STBlock(nn.Module):
             out_channels=embed_size,
             hyperedge_index=hyperedge_index,
             hyperedge_rate=hyperedge_rate,
-            HGCNADP_topk=HGCNADP_topk,
-            embed_dims=HGCNADP_embed_dims
+            AdaHCM_topk=AdaHCM_topk,
+            AdaHCM_embed_dims=AdaHCM_embed_dims
         )
 
-    def forward(self, x):  # t参数为兼容旧接口，实际已不需要
+    def forward(self, x):
         # B, N, T, C = x.shape
         residual_x = x
 
@@ -48,9 +48,9 @@ class STBlocks(nn.Module):
             d_inner,
             device,
             hyperedge_index,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout,
 
     ):
@@ -62,9 +62,9 @@ class STBlocks(nn.Module):
                     embed_size, num_nodes, d_inner,
                     hyperedge_index,
                     device,
-                    HGCNADP_topk,
+                    AdaHCM_topk,
                     hyperedge_rate,
-                    HGCNADP_embed_dims,
+                    AdaHCM_embed_dims,
 
                 )
                 for _ in range(num_layers)
@@ -93,9 +93,9 @@ class main(nn.Module):
             num_nodes,
             hyperedge_index,
             device,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout=0.1,
     ):
         super(main, self).__init__()
@@ -112,9 +112,9 @@ class main(nn.Module):
             d_inner,
             device,
             hyperedge_index,
-            HGCNADP_topk,
+            AdaHCM_topk,
             hyperedge_rate,
-            HGCNADP_embed_dims,
+            AdaHCM_embed_dims,
             dropout,
         )
 
